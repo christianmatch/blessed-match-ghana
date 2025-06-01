@@ -9,7 +9,238 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      blog_comments: {
+        Row: {
+          author_id: string
+          content: string
+          created_at: string
+          id: string
+          post_id: string
+        }
+        Insert: {
+          author_id: string
+          content: string
+          created_at?: string
+          id?: string
+          post_id: string
+        }
+        Update: {
+          author_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          post_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      blog_posts: {
+        Row: {
+          author_id: string
+          category: string
+          content: string
+          created_at: string
+          featured_image_url: string | null
+          id: string
+          published: boolean | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          category: string
+          content: string
+          created_at?: string
+          featured_image_url?: string | null
+          id?: string
+          published?: boolean | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          category?: string
+          content?: string
+          created_at?: string
+          featured_image_url?: string | null
+          id?: string
+          published?: boolean | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      gallery_photos: {
+        Row: {
+          approved: boolean | null
+          caption: string | null
+          created_at: string
+          event_name: string | null
+          id: string
+          image_url: string
+          likes_count: number | null
+          user_id: string
+        }
+        Insert: {
+          approved?: boolean | null
+          caption?: string | null
+          created_at?: string
+          event_name?: string | null
+          id?: string
+          image_url: string
+          likes_count?: number | null
+          user_id: string
+        }
+        Update: {
+          approved?: boolean | null
+          caption?: string | null
+          created_at?: string
+          event_name?: string | null
+          id?: string
+          image_url?: string
+          likes_count?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      page_analytics: {
+        Row: {
+          id: string
+          page_name: string
+          session_id: string | null
+          user_id: string | null
+          visited_at: string
+        }
+        Insert: {
+          id?: string
+          page_name: string
+          session_id?: string | null
+          user_id?: string | null
+          visited_at?: string
+        }
+        Update: {
+          id?: string
+          page_name?: string
+          session_id?: string | null
+          user_id?: string | null
+          visited_at?: string
+        }
+        Relationships: []
+      }
+      photo_likes: {
+        Row: {
+          created_at: string
+          id: string
+          photo_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          photo_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          photo_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "photo_likes_photo_id_fkey"
+            columns: ["photo_id"]
+            isOneToOne: false
+            referencedRelation: "gallery_photos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          bio: string | null
+          church_name: string | null
+          created_at: string
+          dark_mode_preference: boolean | null
+          denomination: string | null
+          email: string | null
+          first_name: string | null
+          id: string
+          last_name: string | null
+          profile_image_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          bio?: string | null
+          church_name?: string | null
+          created_at?: string
+          dark_mode_preference?: boolean | null
+          denomination?: string | null
+          email?: string | null
+          first_name?: string | null
+          id: string
+          last_name?: string | null
+          profile_image_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          bio?: string | null
+          church_name?: string | null
+          created_at?: string
+          dark_mode_preference?: boolean | null
+          denomination?: string | null
+          email?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          profile_image_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          approved: boolean | null
+          created_at: string
+          featured: boolean | null
+          id: string
+          image_url: string | null
+          partner_name: string | null
+          story: string
+          user_id: string
+          video_url: string | null
+        }
+        Insert: {
+          approved?: boolean | null
+          created_at?: string
+          featured?: boolean | null
+          id?: string
+          image_url?: string | null
+          partner_name?: string | null
+          story: string
+          user_id: string
+          video_url?: string | null
+        }
+        Update: {
+          approved?: boolean | null
+          created_at?: string
+          featured?: boolean | null
+          id?: string
+          image_url?: string | null
+          partner_name?: string | null
+          story?: string
+          user_id?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

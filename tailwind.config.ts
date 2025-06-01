@@ -67,12 +67,31 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
+				// Updated color scheme with psychology colors
 				christian: {
 					blue: '#4A90E2',
 					gold: '#D4AF37',
 					cream: '#FFF9E6',
 					navy: '#2C3E50',
 					light: '#F8FAFC'
+				},
+				// New psychology-based colors
+				love: {
+					red: '#E74C3C',
+					'red-dark': '#C0392B'
+				},
+				growth: {
+					green: '#2ECC71',
+					'green-dark': '#27AE60'
+				},
+				highlight: {
+					yellow: '#F1C40F',
+					'yellow-dark': '#F39C12'
+				},
+				surface: {
+					light: '#FFFFFF',
+					dark: '#121212',
+					'dark-elevated': '#1E1E1E'
 				}
 			},
 			borderRadius: {
@@ -126,6 +145,16 @@ export default {
 						transform: 'translateY(0)',
 						opacity: '1'
 					}
+				},
+				'pulse-love': {
+					'0%, 100%': {
+						transform: 'scale(1)',
+						opacity: '1'
+					},
+					'50%': {
+						transform: 'scale(1.05)',
+						opacity: '0.8'
+					}
 				}
 			},
 			animation: {
@@ -133,7 +162,8 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.6s ease-out',
 				'scale-in': 'scale-in 0.3s ease-out',
-				'slide-up': 'slide-up 0.5s ease-out'
+				'slide-up': 'slide-up 0.5s ease-out',
+				'pulse-love': 'pulse-love 2s ease-in-out infinite'
 			}
 		}
 	},
