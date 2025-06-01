@@ -1,31 +1,31 @@
 
-import { Heart, Mail, Users, Calendar } from 'lucide-react';
+import { Heart, Mail, Users, Calendar, MapPin, Phone } from 'lucide-react';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     'About': [
-      { label: 'Our Mission', href: '#' },
-      { label: 'How It Works', href: '#' },
-      { label: 'Success Stories', href: '#' },
-      { label: 'Church Partners', href: '#' },
+      { label: 'Our Mission', href: '/about' },
+      { label: 'How It Works', href: '/about' },
+      { label: 'Success Stories', href: '/about' },
+      { label: 'Church Partners', href: '/about' },
     ],
     'Features': [
-      { label: 'Faith Matching', href: '#' },
-      { label: 'Prayer Partners', href: '#' },
-      { label: 'Christian Events', href: '#' },
-      { label: 'Daily Devotionals', href: '#' },
+      { label: 'Faith Matching', href: '/about' },
+      { label: 'Prayer Partners', href: '/about' },
+      { label: 'Christian Events', href: '/gallery' },
+      { label: 'Daily Devotionals', href: '/blog' },
     ],
     'Support': [
       { label: 'Help Center', href: '#' },
       { label: 'Safety Tips', href: '#' },
-      { label: 'Contact Us', href: '#' },
+      { label: 'Contact Us', href: '#contact' },
       { label: 'Report Issue', href: '#' },
     ],
     'Legal': [
       { label: 'Privacy Policy', href: '#' },
-      { label: 'Terms of Service', href: '#' },
+      { label: 'Terms of Service', href: '/terms' },
       { label: 'Community Guidelines', href: '#' },
       { label: 'Cookie Policy', href: '#' },
     ],
@@ -51,18 +51,39 @@ export const Footer = () => {
             </p>
             
             {/* Contact Info */}
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-christian-blue" />
-                <span className="text-gray-300">info@christianmatchghana.com</span>
+            <div className="space-y-3 mb-6">
+              <div className="flex items-start space-x-3">
+                <MapPin className="h-5 w-5 text-christian-blue mt-1 flex-shrink-0" />
+                <div className="text-gray-300">
+                  <div>GPS: GW-0000-4771</div>
+                  <div>Next to Raydos pharmacy</div>
+                  <div>Jacos Media Building</div>
+                  <div>Amasaman Stadium Junction</div>
+                </div>
               </div>
               <div className="flex items-center space-x-3">
+                <Phone className="h-5 w-5 text-christian-blue" />
+                <div className="text-gray-300">
+                  <div>+233 256 023 816</div>
+                  <div>+233 592 036 044</div>
+                  <div>+233 578 870 638</div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Mail className="h-5 w-5 text-christian-blue" />
+                <span className="text-gray-300">christianmatchghanaltd@gmail.com</span>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3">
                 <Users className="h-5 w-5 text-christian-blue" />
-                <span className="text-gray-300">10,000+ Active Members</span>
+                <span className="text-gray-300">500+ Active Members</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Calendar className="h-5 w-5 text-christian-blue" />
-                <span className="text-gray-300">50+ Church Partners</span>
+                <span className="text-gray-300">25+ Church Partners</span>
               </div>
             </div>
           </div>
