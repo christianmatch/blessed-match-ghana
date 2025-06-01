@@ -8,6 +8,7 @@ import { StatsSection } from '@/components/StatsSection';
 import { CTASection } from '@/components/CTASection';
 import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/AuthModal';
+import { BibleVerseWidget } from '@/components/BibleVerseWidget';
 
 const Index = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -19,9 +20,19 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-christian-light to-white">
+    <div className="min-h-screen bg-gradient-to-b from-christian-light to-white dark:from-surface-dark to-surface-dark-elevated">
       <Header onOpenAuth={handleOpenAuth} />
       <HeroSection onOpenAuth={handleOpenAuth} />
+      
+      {/* Bible Verse Widget Section */}
+      <div className="py-16 bg-gray-50 dark:bg-surface-dark-elevated">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <BibleVerseWidget />
+          </div>
+        </div>
+      </div>
+      
       <FeaturesSection />
       <StatsSection />
       <TestimonialsSection />

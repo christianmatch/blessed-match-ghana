@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -55,26 +54,47 @@ const Blog = () => {
     const { data, error } = await supabase
       .from('blog_posts')
       .select(`
-        *,
-        profiles:author_id (first_name, last_name)
+        id,
+        title,
+        content,
+        category,
+        created_at,
+        author_id,
+        profiles!blog_posts_author_id_fkey (first_name, last_name)
       `)
       .eq('published', true)
       .order('created_at', { ascending: false });
 
-    if (data) setPosts(data);
+    if (data) {
+      // Transform the data to match our interface
+      const transformedPosts = data.map(post => ({
+        ...post,
+        profiles: Array.isArray(post.profiles) ? post.profiles[0] : post.profiles
+      }));
+      setPosts(transformedPosts as BlogPost[]);
+    }
   };
 
   const loadComments = async (postId: string) => {
     const { data, error } = await supabase
       .from('blog_comments')
       .select(`
-        *,
-        profiles:author_id (first_name, last_name)
+        id,
+        content,
+        created_at,
+        profiles!blog_comments_author_id_fkey (first_name, last_name)
       `)
       .eq('post_id', postId)
       .order('created_at', { ascending: false });
 
-    if (data) setComments(data);
+    if (data) {
+      // Transform the data to match our interface
+      const transformedComments = data.map(comment => ({
+        ...comment,
+        profiles: Array.isArray(comment.profiles) ? comment.profiles[0] : comment.profiles
+      }));
+      setComments(transformedComments as Comment[]);
+    }
   };
 
   const submitComment = async () => {
