@@ -9,6 +9,72 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      admin_users: {
+        Row: {
+          created_at: string
+          id: string
+          permissions: Json | null
+          role: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          permissions?: Json | null
+          role?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          permissions?: Json | null
+          role?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      announcements: {
+        Row: {
+          content: string
+          created_at: string
+          created_by: string
+          id: string
+          is_active: boolean | null
+          scheduled_at: string | null
+          target_audience: Json | null
+          title: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          created_by: string
+          id?: string
+          is_active?: boolean | null
+          scheduled_at?: string | null
+          target_audience?: Json | null
+          title: string
+          type?: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          is_active?: boolean | null
+          scheduled_at?: string | null
+          target_audience?: Json | null
+          title?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       blog_comments: {
         Row: {
           author_id: string
@@ -77,6 +143,87 @@ export type Database = {
         }
         Relationships: []
       }
+      content_moderation: {
+        Row: {
+          content_id: string
+          content_type: string
+          created_at: string
+          id: string
+          moderation_notes: string | null
+          moderator_id: string | null
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          content_id: string
+          content_type: string
+          created_at?: string
+          id?: string
+          moderation_notes?: string | null
+          moderator_id?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          content_id?: string
+          content_type?: string
+          created_at?: string
+          id?: string
+          moderation_notes?: string | null
+          moderator_id?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          created_at: string
+          created_by: string
+          date_time: string
+          description: string | null
+          event_type: string
+          id: string
+          is_active: boolean | null
+          location: string | null
+          max_attendees: number | null
+          registration_fee: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          date_time: string
+          description?: string | null
+          event_type: string
+          id?: string
+          is_active?: boolean | null
+          location?: string | null
+          max_attendees?: number | null
+          registration_fee?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          date_time?: string
+          description?: string | null
+          event_type?: string
+          id?: string
+          is_active?: boolean | null
+          location?: string | null
+          max_attendees?: number | null
+          registration_fee?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       gallery_photos: {
         Row: {
           approved: boolean | null
@@ -107,6 +254,36 @@ export type Database = {
           image_url?: string
           likes_count?: number | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      matches: {
+        Row: {
+          created_at: string
+          id: string
+          match_score: number | null
+          status: string
+          updated_at: string
+          user1_id: string
+          user2_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          match_score?: number | null
+          status?: string
+          updated_at?: string
+          user1_id: string
+          user2_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          match_score?: number | null
+          status?: string
+          updated_at?: string
+          user1_id?: string
+          user2_id?: string
         }
         Relationships: []
       }
@@ -205,6 +382,93 @@ export type Database = {
         }
         Relationships: []
       }
+      subscriptions: {
+        Row: {
+          amount: number | null
+          created_at: string
+          currency: string | null
+          end_date: string | null
+          id: string
+          payment_method: string | null
+          plan_type: string
+          start_date: string
+          status: string
+          stripe_subscription_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          end_date?: string | null
+          id?: string
+          payment_method?: string | null
+          plan_type: string
+          start_date?: string
+          status?: string
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          end_date?: string | null
+          id?: string
+          payment_method?: string | null
+          plan_type?: string
+          start_date?: string
+          status?: string
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      support_tickets: {
+        Row: {
+          assigned_admin_id: string | null
+          category: string
+          created_at: string
+          description: string
+          id: string
+          priority: string
+          resolution_notes: string | null
+          status: string
+          subject: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          assigned_admin_id?: string | null
+          category: string
+          created_at?: string
+          description: string
+          id?: string
+          priority?: string
+          resolution_notes?: string | null
+          status?: string
+          subject: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          assigned_admin_id?: string | null
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          priority?: string
+          resolution_notes?: string | null
+          status?: string
+          subject?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       testimonials: {
         Row: {
           approved: boolean | null
@@ -238,6 +502,75 @@ export type Database = {
           story?: string
           user_id?: string
           video_url?: string | null
+        }
+        Relationships: []
+      }
+      user_activity_logs: {
+        Row: {
+          action: string
+          created_at: string
+          details: Json | null
+          id: string
+          ip_address: unknown | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_reports: {
+        Row: {
+          assigned_admin_id: string | null
+          created_at: string
+          description: string | null
+          id: string
+          report_type: string
+          reported_user_id: string
+          reporter_id: string
+          resolution_notes: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_admin_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          report_type: string
+          reported_user_id: string
+          reporter_id: string
+          resolution_notes?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_admin_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          report_type?: string
+          reported_user_id?: string
+          reporter_id?: string
+          resolution_notes?: string | null
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }
