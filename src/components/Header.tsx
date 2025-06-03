@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Logo } from '@/components/Logo';
@@ -18,6 +17,7 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
 
   const navItems = [
     { name: 'Home', path: '/' },
+    { name: 'Find Match', path: '/find-match' },
     { name: 'About', path: '/about' },
     { name: 'Blog', path: '/blog' },
     { name: 'Gallery', path: '/gallery' },
