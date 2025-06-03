@@ -1,18 +1,11 @@
 
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { DarkModeToggle } from '@/components/DarkModeToggle';
+import { Link, useLocation } from 'react-router-dom';
 import { Logo } from '@/components/Logo';
+import { DarkModeToggle } from '@/components/DarkModeToggle';
+import { Button } from '@/components/ui/button';
+import { Menu, X, Heart, MessageCircle, Users } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import { 
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { User, LogOut, Settings } from 'lucide-react';
 
 interface HeaderProps {
   onOpenAuth: (mode: 'login' | 'signup') => void;
@@ -20,139 +13,194 @@ interface HeaderProps {
 
 export const Header = ({ onOpenAuth }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, signOut, userProfile } = useAuth();
-  const navigate = useNavigate();
+  const location = useLocation();
+  const { user, signOut } = useAuth();
+
+  const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Gallery', path: '/gallery' },
+    { name: 'Pricing', path: '/pricing' },
+  ];
+
+  const authenticatedNavItems = [
+    { name: 'Find Match', path: '/find-match', icon: Heart },
+    { name: 'Chat', path: '/chat', icon: MessageCircle },
+    { name: 'Profile', path: '/profile', icon: Users },
+  ];
 
   const handleSignOut = async () => {
     try {
       await signOut();
-      navigate('/');
     } catch (error) {
-      console.error('Sign out error:', error);
+      console.error('Error signing out:', error);
     }
-  };
-
-  const getUserInitials = () => {
-    if (userProfile?.first_name && userProfile?.last_name) {
-      return `${userProfile.first_name[0]}${userProfile.last_name[0]}`.toUpperCase();
-    }
-    if (user?.email) {
-      return user.email[0].toUpperCase();
-    }
-    return 'U';
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 dark:bg-surface-dark/95 dark:border-gray-700">
-      <nav className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-surface-dark-elevated/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
           <Link to="/" className="flex items-center">
             <Logo />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link to="/blog" className="text-gray-700 hover:text-christian-blue dark:text-gray-300 dark:hover:text-christian-blue transition-colors">
-              Blog
-            </Link>
-            <Link to="/gallery" className="text-gray-700 hover:text-christian-blue dark:text-gray-300 dark:hover:text-christian-blue transition-colors">
-              Gallery
-            </Link>
-            <Link to="/about" className="text-gray-700 hover:text-christian-blue dark:text-gray-300 dark:hover:text-christian-blue transition-colors">
-              About
-            </Link>
-            <Link to="/pricing" className="text-gray-700 hover:text-christian-blue dark:text-gray-300 dark:hover:text-christian-blue transition-colors">
-              Pricing
-            </Link>
+          <nav className="hidden lg:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`font-medium transition-colors hover:text-christian-blue ${
+                  location.pathname === item.path
+                    ? 'text-christian-blue'
+                    : 'text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
             
-            <DarkModeToggle />
+            {user && authenticatedNavItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`flex items-center space-x-1 font-medium transition-colors hover:text-christian-blue ${
+                    location.pathname === item.path
+                      ? 'text-christian-blue'
+                      : 'text-gray-700 dark:text-gray-300'
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  <span>{item.name}</span>
+                </Link>
+              );
+            })}
+          </nav>
 
+          {/* Desktop Auth Buttons */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <DarkModeToggle />
             {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage src={userProfile?.profile_image_url} alt="Profile" />
-                      <AvatarFallback>{getUserInitials()}</AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
-                  <DropdownMenuItem onClick={() => navigate('/profile')}>
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/settings')}>
-                    <Settings className="mr-2 h-4 w-4" />
-                    <span>Settings</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleSignOut}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Sign out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
               <div className="flex items-center space-x-4">
+                <span className="text-sm text-gray-600 dark:text-gray-300">
+                  Welcome, {user.email}
+                </span>
+                <Button onClick={handleSignOut} variant="outline">
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <>
                 <Button 
                   variant="ghost" 
                   onClick={() => onOpenAuth('login')}
-                  className="text-gray-700 hover:text-christian-blue dark:text-gray-300"
                 >
                   Sign In
                 </Button>
-                <Button 
-                  onClick={() => onOpenAuth('signup')}
-                  className="btn-christian"
-                >
-                  Join Now
+                <Button onClick={() => onOpenAuth('signup')}>
+                  Get Started
                 </Button>
-              </div>
+              </>
             )}
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden flex items-center space-x-2">
             <DarkModeToggle />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-gray-700 dark:text-gray-300"
+              className="p-2 text-gray-600 dark:text-gray-300 hover:text-christian-blue transition-colors"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 py-4 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex flex-col space-y-4">
-              <Link to="/blog" className="text-gray-700 hover:text-christian-blue dark:text-gray-300 dark:hover:text-christian-blue">Blog</Link>
-              <Link to="/gallery" className="text-gray-700 hover:text-christian-blue dark:text-gray-300 dark:hover:text-christian-blue">Gallery</Link>
-              <Link to="/about" className="text-gray-700 hover:text-christian-blue dark:text-gray-300 dark:hover:text-christian-blue">About</Link>
-              <Link to="/pricing" className="text-gray-700 hover:text-christian-blue dark:text-gray-300 dark:hover:text-christian-blue">Pricing</Link>
+          <div className="lg:hidden py-4 border-t border-gray-200 dark:border-gray-700">
+            <nav className="space-y-2">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`block px-3 py-2 rounded-md font-medium transition-colors ${
+                    location.pathname === item.path
+                      ? 'bg-christian-blue/10 text-christian-blue'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
               
-              {user ? (
-                <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <Button variant="ghost" onClick={() => navigate('/profile')} className="justify-start">
-                    Profile
-                  </Button>
-                  <Button variant="ghost" onClick={handleSignOut} className="justify-start text-red-600">
-                    Sign Out
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <Button variant="ghost" onClick={() => onOpenAuth('login')}>Sign In</Button>
-                  <Button onClick={() => onOpenAuth('signup')} className="btn-christian">Join Now</Button>
-                </div>
-              )}
-            </div>
+              {user && authenticatedNavItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.path}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-md font-medium transition-colors ${
+                      location.pathname === item.path
+                        ? 'bg-christian-blue/10 text-christian-blue'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    <span>{item.name}</span>
+                  </Link>
+                );
+              })}
+              
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
+                {user ? (
+                  <div className="space-y-2">
+                    <div className="px-3 py-2 text-sm text-gray-600 dark:text-gray-300">
+                      Welcome, {user.email}
+                    </div>
+                    <Button 
+                      onClick={handleSignOut} 
+                      variant="outline" 
+                      className="w-full mx-3"
+                    >
+                      Sign Out
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    <Button 
+                      variant="ghost" 
+                      onClick={() => {
+                        onOpenAuth('login');
+                        setIsMenuOpen(false);
+                      }}
+                      className="w-full mx-3"
+                    >
+                      Sign In
+                    </Button>
+                    <Button 
+                      onClick={() => {
+                        onOpenAuth('signup');
+                        setIsMenuOpen(false);
+                      }}
+                      className="w-full mx-3"
+                    >
+                      Get Started
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </nav>
           </div>
         )}
-      </nav>
+      </div>
     </header>
   );
 };

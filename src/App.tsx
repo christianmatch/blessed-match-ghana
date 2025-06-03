@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +14,7 @@ import Terms from "./pages/Terms";
 import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import Chat from "./pages/Chat";
+import FindMatch from "./pages/FindMatch";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
@@ -38,6 +38,7 @@ const App = () => (
               <Route path="/profile" element={<Profile />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/chat" element={<Chat />} />
+              <Route path="/find-match" element={<FindMatch />} />
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
