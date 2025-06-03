@@ -179,6 +179,56 @@ export type Database = {
         }
         Relationships: []
       }
+      conversation_participants: {
+        Row: {
+          conversation_id: string
+          id: string
+          joined_at: string
+          user_id: string
+        }
+        Insert: {
+          conversation_id: string
+          id?: string
+          joined_at?: string
+          user_id: string
+        }
+        Update: {
+          conversation_id?: string
+          id?: string
+          joined_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversation_participants_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      conversations: {
+        Row: {
+          created_at: string
+          id: string
+          last_message_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_message_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_message_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           created_at: string
@@ -287,6 +337,44 @@ export type Database = {
         }
         Relationships: []
       }
+      messages: {
+        Row: {
+          content: string
+          conversation_id: string
+          created_at: string
+          id: string
+          message_type: string | null
+          read_at: string | null
+          sender_id: string
+        }
+        Insert: {
+          content: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          message_type?: string | null
+          read_at?: string | null
+          sender_id: string
+        }
+        Update: {
+          content?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          message_type?: string | null
+          read_at?: string | null
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       page_analytics: {
         Row: {
           id: string
@@ -308,6 +396,39 @@ export type Database = {
           session_id?: string | null
           user_id?: string | null
           visited_at?: string
+        }
+        Relationships: []
+      }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string
+          currency: string | null
+          id: string
+          paystack_reference: string
+          status: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          currency?: string | null
+          id?: string
+          paystack_reference: string
+          status?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          currency?: string | null
+          id?: string
+          paystack_reference?: string
+          status?: string | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -342,6 +463,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          address: string | null
           bio: string | null
           church_name: string | null
           created_at: string
@@ -355,6 +477,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          address?: string | null
           bio?: string | null
           church_name?: string | null
           created_at?: string
@@ -368,6 +491,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          address?: string | null
           bio?: string | null
           church_name?: string | null
           created_at?: string
@@ -394,6 +518,7 @@ export type Database = {
           start_date: string
           status: string
           stripe_subscription_id: string | null
+          subscription_status: string | null
           updated_at: string
           user_id: string
         }
@@ -408,6 +533,7 @@ export type Database = {
           start_date?: string
           status?: string
           stripe_subscription_id?: string | null
+          subscription_status?: string | null
           updated_at?: string
           user_id: string
         }
@@ -422,6 +548,7 @@ export type Database = {
           start_date?: string
           status?: string
           stripe_subscription_id?: string | null
+          subscription_status?: string | null
           updated_at?: string
           user_id?: string
         }
