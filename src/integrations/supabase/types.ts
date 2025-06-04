@@ -9,6 +9,33 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      admin_accounts: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          last_login: string | null
+          password_hash: string
+          role: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          last_login?: string | null
+          password_hash: string
+          role?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          last_login?: string | null
+          password_hash?: string
+          role?: string
+        }
+        Relationships: []
+      }
       admin_users: {
         Row: {
           created_at: string
@@ -274,38 +301,124 @@ export type Database = {
         }
         Relationships: []
       }
+      gallery_comments: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          parent_comment_id: string | null
+          photo_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          parent_comment_id?: string | null
+          photo_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          parent_comment_id?: string | null
+          photo_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gallery_comments_parent_comment_id_fkey"
+            columns: ["parent_comment_id"]
+            isOneToOne: false
+            referencedRelation: "gallery_comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "gallery_comments_photo_id_fkey"
+            columns: ["photo_id"]
+            isOneToOne: false
+            referencedRelation: "gallery_photos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       gallery_photos: {
         Row: {
           approved: boolean | null
           caption: string | null
+          comments_count: number | null
           created_at: string
           event_name: string | null
+          faith_moment_tag: string | null
           id: string
           image_url: string
           likes_count: number | null
+          reposts_count: number | null
           user_id: string
         }
         Insert: {
           approved?: boolean | null
           caption?: string | null
+          comments_count?: number | null
           created_at?: string
           event_name?: string | null
+          faith_moment_tag?: string | null
           id?: string
           image_url: string
           likes_count?: number | null
+          reposts_count?: number | null
           user_id: string
         }
         Update: {
           approved?: boolean | null
           caption?: string | null
+          comments_count?: number | null
           created_at?: string
           event_name?: string | null
+          faith_moment_tag?: string | null
           id?: string
           image_url?: string
           likes_count?: number | null
+          reposts_count?: number | null
           user_id?: string
         }
         Relationships: []
+      }
+      gallery_reposts: {
+        Row: {
+          caption: string | null
+          created_at: string
+          id: string
+          photo_id: string
+          user_id: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          photo_id: string
+          user_id: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          photo_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gallery_reposts_photo_id_fkey"
+            columns: ["photo_id"]
+            isOneToOne: false
+            referencedRelation: "gallery_photos"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       matches: {
         Row: {
