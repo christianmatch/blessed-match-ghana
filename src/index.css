@@ -5,83 +5,104 @@
 
 @layer base {
   :root {
-    --background: 250 250 250;
-    --foreground: 39 39 42;
+    /* Light Mode - Faithful & Warm Palette */
+    --background: 255 249 240; /* Faithful Ivory */
+    --foreground: 51 51 51; /* Charcoal */
 
-    --card: 255 255 255;
-    --card-foreground: 39 39 42;
+    --card: 255 255 255; /* Pure White */
+    --card-foreground: 51 51 51; /* Charcoal */
 
-    --popover: 255 255 255;
-    --popover-foreground: 39 39 42;
+    --popover: 255 255 255; /* Pure White */
+    --popover-foreground: 51 51 51; /* Charcoal */
 
-    --primary: 70 144 226;
-    --primary-foreground: 255 255 255;
+    --primary: 65 105 225; /* Sacred Blue */
+    --primary-foreground: 255 255 255; /* Pure White */
 
-    --secondary: 212 175 55;
-    --secondary-foreground: 39 39 42;
+    --secondary: 255 215 0; /* Divine Gold */
+    --secondary-foreground: 51 51 51; /* Charcoal */
 
-    --muted: 244 244 245;
-    --muted-foreground: 113 113 122;
+    --muted: 255 249 240; /* Faithful Ivory */
+    --muted-foreground: 128 0 0; /* Deep Maroon */
 
-    --accent: 255 249 230;
-    --accent-foreground: 39 39 42;
+    --accent: 255 182 193; /* Blush Pink */
+    --accent-foreground: 51 51 51; /* Charcoal */
 
-    --destructive: 239 68 68;
-    --destructive-foreground: 255 255 255;
+    --destructive: 220 38 127; /* Deep Pink */
+    --destructive-foreground: 255 255 255; /* Pure White */
 
-    --border: 229 231 235;
-    --input: 229 231 235;
-    --ring: 70 144 226;
+    --border: 65 105 225; /* Sacred Blue */
+    --input: 229 231 235; /* Light Gray */
+    --ring: 255 215 0; /* Divine Gold */
 
     --radius: 0.75rem;
 
-    --sidebar-background: 255 255 255;
-    --sidebar-foreground: 39 39 42;
-    --sidebar-primary: 70 144 226;
-    --sidebar-primary-foreground: 255 255 255;
-    --sidebar-accent: 244 244 245;
-    --sidebar-accent-foreground: 39 39 42;
-    --sidebar-border: 229 231 235;
-    --sidebar-ring: 70 144 226;
+    /* Sidebar */
+    --sidebar-background: 255 255 255; /* Pure White */
+    --sidebar-foreground: 51 51 51; /* Charcoal */
+    --sidebar-primary: 65 105 225; /* Sacred Blue */
+    --sidebar-primary-foreground: 255 255 255; /* Pure White */
+    --sidebar-accent: 255 249 240; /* Faithful Ivory */
+    --sidebar-accent-foreground: 51 51 51; /* Charcoal */
+    --sidebar-border: 65 105 225; /* Sacred Blue */
+    --sidebar-ring: 255 215 0; /* Divine Gold */
+
+    /* Custom Spiritual Colors */
+    --faithful-ivory: 255 249 240;
+    --pure-white: 255 255 255;
+    --divine-gold: 255 215 0;
+    --sacred-blue: 65 105 225;
+    --graceful-green: 46 139 87;
+    --blush-pink: 255 182 193;
+    --deep-maroon: 128 0 0;
+    --charcoal: 51 51 51;
   }
 
   .dark {
-    --background: 9 9 11;
-    --foreground: 250 250 250;
+    /* Dark Mode - Nightly Serenity Palette */
+    --background: 10 31 58; /* Nightly Navy */
+    --foreground: 245 245 245; /* Soft White */
 
-    --card: 9 9 11;
-    --card-foreground: 250 250 250;
+    --card: 44 62 80; /* Charcoal Gray */
+    --card-foreground: 245 245 245; /* Soft White */
 
-    --popover: 9 9 11;
-    --popover-foreground: 250 250 250;
+    --popover: 44 62 80; /* Charcoal Gray */
+    --popover-foreground: 245 245 245; /* Soft White */
 
-    --primary: 70 144 226;
-    --primary-foreground: 255 255 255;
+    --primary: 255 204 0; /* Radiant Yellow */
+    --primary-foreground: 10 31 58; /* Nightly Navy */
 
-    --secondary: 212 175 55;
-    --secondary-foreground: 255 255 255;
+    --secondary: 0 139 139; /* Celestial Teal */
+    --secondary-foreground: 245 245 245; /* Soft White */
 
-    --muted: 39 39 42;
-    --muted-foreground: 161 161 170;
+    --muted: 44 62 80; /* Charcoal Gray */
+    --muted-foreground: 245 245 245; /* Soft White */
 
-    --accent: 39 39 42;
-    --accent-foreground: 250 250 250;
+    --accent: 0 139 139; /* Celestial Teal */
+    --accent-foreground: 245 245 245; /* Soft White */
 
-    --destructive: 239 68 68;
-    --destructive-foreground: 255 255 255;
+    --destructive: 239 68 68; /* Red */
+    --destructive-foreground: 255 255 255; /* Pure White */
 
-    --border: 39 39 42;
-    --input: 39 39 42;
-    --ring: 70 144 226;
+    --border: 0 139 139; /* Celestial Teal */
+    --input: 44 62 80; /* Charcoal Gray */
+    --ring: 255 204 0; /* Radiant Yellow */
 
-    --sidebar-background: 9 9 11;
-    --sidebar-foreground: 250 250 250;
-    --sidebar-primary: 70 144 226;
-    --sidebar-primary-foreground: 255 255 255;
-    --sidebar-accent: 39 39 42;
-    --sidebar-accent-foreground: 250 250 250;
-    --sidebar-border: 39 39 42;
-    --sidebar-ring: 70 144 226;
+    /* Sidebar Dark */
+    --sidebar-background: 10 31 58; /* Nightly Navy */
+    --sidebar-foreground: 245 245 245; /* Soft White */
+    --sidebar-primary: 255 204 0; /* Radiant Yellow */
+    --sidebar-primary-foreground: 10 31 58; /* Nightly Navy */
+    --sidebar-accent: 44 62 80; /* Charcoal Gray */
+    --sidebar-accent-foreground: 245 245 245; /* Soft White */
+    --sidebar-border: 0 139 139; /* Celestial Teal */
+    --sidebar-ring: 255 204 0; /* Radiant Yellow */
+
+    /* Custom Spiritual Colors Dark */
+    --nightly-navy: 10 31 58;
+    --charcoal-gray: 44 62 80;
+    --radiant-yellow: 255 204 0;
+    --celestial-teal: 0 139 139;
+    --soft-white: 245 245 245;
   }
 }
 
@@ -97,11 +118,11 @@
 
 @layer components {
   .gradient-bg {
-    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 50%, #2C5F87 100%);
+    background: linear-gradient(135deg, rgb(65 105 225) 0%, rgb(46 139 87) 50%, rgb(255 215 0) 100%);
   }
   
   .gold-gradient {
-    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #F7DC6F 100%);
+    background: linear-gradient(135deg, rgb(255 215 0) 0%, rgb(255 204 0) 50%, rgb(255 182 193) 100%);
   }
   
   .hover-lift {
@@ -109,10 +130,10 @@
   }
   
   .btn-christian {
-    @apply bg-christian-blue hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg;
+    @apply bg-sacred-blue hover:bg-sacred-blue/90 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg;
   }
   
   .btn-gold {
-    @apply bg-christian-gold hover:bg-yellow-500 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg;
+    @apply bg-divine-gold hover:bg-divine-gold/90 text-charcoal font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg;
   }
 }

@@ -67,31 +67,48 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Updated color scheme with psychology colors
+				// New Spiritual Color Palette
+				// Light Mode Colors
+				'faithful-ivory': 'rgb(var(--faithful-ivory) / <alpha-value>)',
+				'pure-white': 'rgb(var(--pure-white) / <alpha-value>)',
+				'divine-gold': 'rgb(var(--divine-gold) / <alpha-value>)',
+				'sacred-blue': 'rgb(var(--sacred-blue) / <alpha-value>)',
+				'graceful-green': 'rgb(var(--graceful-green) / <alpha-value>)',
+				'blush-pink': 'rgb(var(--blush-pink) / <alpha-value>)',
+				'deep-maroon': 'rgb(var(--deep-maroon) / <alpha-value>)',
+				'charcoal': 'rgb(var(--charcoal) / <alpha-value>)',
+				
+				// Dark Mode Colors
+				'nightly-navy': 'rgb(var(--nightly-navy) / <alpha-value>)',
+				'charcoal-gray': 'rgb(var(--charcoal-gray) / <alpha-value>)',
+				'radiant-yellow': 'rgb(var(--radiant-yellow) / <alpha-value>)',
+				'celestial-teal': 'rgb(var(--celestial-teal) / <alpha-value>)',
+				'soft-white': 'rgb(var(--soft-white) / <alpha-value>)',
+
+				// Legacy colors for backward compatibility
 				christian: {
-					blue: '#4A90E2',
-					gold: '#D4AF37',
-					cream: '#FFF9E6',
-					navy: '#2C3E50',
+					blue: '#4169E1',
+					gold: '#FFD700',
+					cream: '#FFF9F0',
+					navy: '#0A1F3A',
 					light: '#F8FAFC'
 				},
-				// New psychology-based colors
 				love: {
 					red: '#E74C3C',
 					'red-dark': '#C0392B'
 				},
 				growth: {
-					green: '#2ECC71',
+					green: '#2E8B57',
 					'green-dark': '#27AE60'
 				},
 				highlight: {
-					yellow: '#F1C40F',
+					yellow: '#FFCC00',
 					'yellow-dark': '#F39C12'
 				},
 				surface: {
 					light: '#FFFFFF',
-					dark: '#121212',
-					'dark-elevated': '#1E1E1E'
+					dark: '#0A1F3A',
+					'dark-elevated': '#2C3E50'
 				}
 			},
 			borderRadius: {

@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Logo } from '@/components/Logo';
@@ -17,7 +18,6 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
 
   const navItems = [
     { name: 'Home', path: '/' },
-    { name: 'Find Match', path: '/find-match' },
     { name: 'About', path: '/about' },
     { name: 'Blog', path: '/blog' },
     { name: 'Gallery', path: '/gallery' },
@@ -39,7 +39,7 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-surface-dark-elevated/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-faithful-ivory/95 dark:bg-nightly-navy/95 backdrop-blur-sm border-b border-sacred-blue/20 dark:border-celestial-teal/30">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -53,10 +53,10 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
               <Link
                 key={item.name}
                 to={item.path}
-                className={`font-medium transition-colors hover:text-christian-blue ${
+                className={`font-medium transition-colors hover:text-sacred-blue dark:hover:text-radiant-yellow ${
                   location.pathname === item.path
-                    ? 'text-christian-blue'
-                    : 'text-gray-700 dark:text-gray-300'
+                    ? 'text-sacred-blue dark:text-radiant-yellow'
+                    : 'text-charcoal dark:text-soft-white'
                 }`}
               >
                 {item.name}
@@ -69,10 +69,10 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`flex items-center space-x-1 font-medium transition-colors hover:text-christian-blue ${
+                  className={`flex items-center space-x-1 font-medium transition-colors hover:text-sacred-blue dark:hover:text-radiant-yellow ${
                     location.pathname === item.path
-                      ? 'text-christian-blue'
-                      : 'text-gray-700 dark:text-gray-300'
+                      ? 'text-sacred-blue dark:text-radiant-yellow'
+                      : 'text-charcoal dark:text-soft-white'
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -87,10 +87,10 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
             <DarkModeToggle />
             {user ? (
               <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-600 dark:text-gray-300">
+                <span className="text-sm text-charcoal/70 dark:text-soft-white/70">
                   Welcome, {user.email}
                 </span>
-                <Button onClick={handleSignOut} variant="outline">
+                <Button onClick={handleSignOut} variant="outline" className="border-deep-maroon text-deep-maroon hover:bg-deep-maroon hover:text-white dark:border-celestial-teal dark:text-celestial-teal dark:hover:bg-celestial-teal dark:hover:text-nightly-navy">
                   Sign Out
                 </Button>
               </div>
@@ -99,10 +99,14 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
                 <Button 
                   variant="ghost" 
                   onClick={() => onOpenAuth('login')}
+                  className="text-charcoal hover:text-sacred-blue dark:text-soft-white dark:hover:text-radiant-yellow"
                 >
                   Sign In
                 </Button>
-                <Button onClick={() => onOpenAuth('signup')}>
+                <Button 
+                  onClick={() => onOpenAuth('signup')}
+                  className="bg-divine-gold hover:bg-divine-gold/90 text-charcoal font-semibold"
+                >
                   Get Started
                 </Button>
               </>
@@ -114,7 +118,7 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
             <DarkModeToggle />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-gray-600 dark:text-gray-300 hover:text-christian-blue transition-colors"
+              className="p-2 text-charcoal dark:text-soft-white hover:text-sacred-blue dark:hover:text-radiant-yellow transition-colors"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -123,7 +127,7 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="lg:hidden py-4 border-t border-sacred-blue/20 dark:border-celestial-teal/30">
             <nav className="space-y-2">
               {navItems.map((item) => (
                 <Link
@@ -132,8 +136,8 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
                   onClick={() => setIsMenuOpen(false)}
                   className={`block px-3 py-2 rounded-md font-medium transition-colors ${
                     location.pathname === item.path
-                      ? 'bg-christian-blue/10 text-christian-blue'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                      ? 'bg-sacred-blue/10 dark:bg-radiant-yellow/10 text-sacred-blue dark:text-radiant-yellow'
+                      : 'text-charcoal dark:text-soft-white hover:bg-faithful-ivory dark:hover:bg-charcoal-gray'
                   }`}
                 >
                   {item.name}
@@ -149,8 +153,8 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
                     onClick={() => setIsMenuOpen(false)}
                     className={`flex items-center space-x-2 px-3 py-2 rounded-md font-medium transition-colors ${
                       location.pathname === item.path
-                        ? 'bg-christian-blue/10 text-christian-blue'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                        ? 'bg-sacred-blue/10 dark:bg-radiant-yellow/10 text-sacred-blue dark:text-radiant-yellow'
+                        : 'text-charcoal dark:text-soft-white hover:bg-faithful-ivory dark:hover:bg-charcoal-gray'
                     }`}
                   >
                     <Icon className="h-4 w-4" />
@@ -159,16 +163,16 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
                 );
               })}
               
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
+              <div className="border-t border-sacred-blue/20 dark:border-celestial-teal/30 pt-2 mt-2">
                 {user ? (
                   <div className="space-y-2">
-                    <div className="px-3 py-2 text-sm text-gray-600 dark:text-gray-300">
+                    <div className="px-3 py-2 text-sm text-charcoal/70 dark:text-soft-white/70">
                       Welcome, {user.email}
                     </div>
                     <Button 
                       onClick={handleSignOut} 
                       variant="outline" 
-                      className="w-full mx-3"
+                      className="w-full mx-3 border-deep-maroon text-deep-maroon hover:bg-deep-maroon hover:text-white dark:border-celestial-teal dark:text-celestial-teal dark:hover:bg-celestial-teal dark:hover:text-nightly-navy"
                     >
                       Sign Out
                     </Button>
@@ -181,7 +185,7 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
                         onOpenAuth('login');
                         setIsMenuOpen(false);
                       }}
-                      className="w-full mx-3"
+                      className="w-full mx-3 text-charcoal hover:text-sacred-blue dark:text-soft-white dark:hover:text-radiant-yellow"
                     >
                       Sign In
                     </Button>
@@ -190,7 +194,7 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
                         onOpenAuth('signup');
                         setIsMenuOpen(false);
                       }}
-                      className="w-full mx-3"
+                      className="w-full mx-3 bg-divine-gold hover:bg-divine-gold/90 text-charcoal font-semibold"
                     >
                       Get Started
                     </Button>

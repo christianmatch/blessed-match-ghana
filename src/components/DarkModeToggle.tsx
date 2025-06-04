@@ -11,12 +11,12 @@ export const DarkModeToggle = () => {
       variant="ghost"
       size="sm"
       onClick={toggleDarkMode}
-      className="hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+      className="hover:bg-faithful-ivory dark:hover:bg-charcoal-gray transition-colors"
     >
       {isDarkMode ? (
-        <Sun className="h-5 w-5 text-highlight-yellow" />
+        <Sun className="h-5 w-5 text-radiant-yellow" />
       ) : (
-        <Moon className="h-5 w-5 text-christian-navy" />
+        <Moon className="h-5 w-5 text-deep-maroon" />
       )}
     </Button>
   );
