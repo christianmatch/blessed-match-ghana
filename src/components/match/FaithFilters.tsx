@@ -73,14 +73,13 @@ export const FaithFilters = ({ filters, onFiltersChange }: FaithFiltersProps) =>
           <div className="space-y-2">
             <Label>Denomination</Label>
             <Select 
-              value={filters.denomination} 
-              onValueChange={(value) => updateFilter('denomination', value)}
+              value={filters.denomination || undefined} 
+              onValueChange={(value) => updateFilter('denomination', value || '')}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Any denomination" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any denomination</SelectItem>
                 {denominations.map((denom) => (
                   <SelectItem key={denom} value={denom}>
                     {denom}
