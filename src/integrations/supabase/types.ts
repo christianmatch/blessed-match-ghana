@@ -256,10 +256,40 @@ export type Database = {
         }
         Relationships: []
       }
+      event_participants: {
+        Row: {
+          event_id: string
+          id: string
+          joined_at: string
+          user_id: string
+        }
+        Insert: {
+          event_id: string
+          id?: string
+          joined_at?: string
+          user_id: string
+        }
+        Update: {
+          event_id?: string
+          id?: string
+          joined_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_participants_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       events: {
         Row: {
           created_at: string
           created_by: string
+          current_attendees: number | null
           date_time: string
           description: string | null
           event_type: string
@@ -274,6 +304,7 @@ export type Database = {
         Insert: {
           created_at?: string
           created_by: string
+          current_attendees?: number | null
           date_time: string
           description?: string | null
           event_type: string
@@ -288,6 +319,7 @@ export type Database = {
         Update: {
           created_at?: string
           created_by?: string
+          current_attendees?: number | null
           date_time?: string
           description?: string | null
           event_type?: string
