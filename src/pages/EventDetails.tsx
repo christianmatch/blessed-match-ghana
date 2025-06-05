@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Header } from '@/components/Header';
@@ -33,7 +32,7 @@ interface Participant {
   profiles: {
     first_name: string;
     last_name: string;
-  };
+  } | null;
 }
 
 const EventDetails = () => {
@@ -68,22 +67,38 @@ const EventDetails = () => {
       if (eventError) throw eventError;
       setEvent(eventData);
 
-      // Fetch participants
+      // Fetch participants with their profiles
       const { data: participantsData, error: participantsError } = await supabase
         .from('event_participants')
         .select(`
           id,
           user_id,
-          joined_at,
-          profiles:user_id (
-            first_name,
-            last_name
-          )
+          joined_at
         `)
         .eq('event_id', id);
 
       if (participantsError) throw participantsError;
-      setParticipants(participantsData || []);
+
+      // Fetch profiles for participants
+      if (participantsData && participantsData.length > 0) {
+        const userIds = participantsData.map(p => p.user_id);
+        const { data: profilesData, error: profilesError } = await supabase
+          .from('profiles')
+          .select('id, first_name, last_name')
+          .in('id', userIds);
+
+        if (profilesError) throw profilesError;
+
+        // Combine participants with their profiles
+        const participantsWithProfiles = participantsData.map(participant => ({
+          ...participant,
+          profiles: profilesData?.find(profile => profile.id === participant.user_id) || null
+        }));
+
+        setParticipants(participantsWithProfiles);
+      } else {
+        setParticipants([]);
+      }
 
       // Check if current user is a participant
       if (user) {
