@@ -92,20 +92,20 @@ const Gallery = () => {
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           {/* Header Section */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl lg:text-5xl font-playfair font-bold text-deep-maroon dark:text-divine-gold mb-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-bold text-deep-maroon dark:text-divine-gold mb-4 sm:mb-6">
               Community Gallery
             </h1>
-            <p className="text-xl text-charcoal dark:text-soft-white max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-charcoal dark:text-soft-white max-w-3xl mx-auto leading-relaxed px-4">
               Celebrate love and faith with photos from Christian events, weddings, and community gatherings. 
               Share your moments and spread positivity through our blessed community.
             </p>
           </div>
 
           {/* Controls Section */}
-          <div className="flex flex-col lg:flex-row gap-4 mb-8 items-center justify-between">
+          <div className="flex flex-col lg:flex-row gap-4 mb-6 sm:mb-8 items-stretch lg:items-center lg:justify-between">
             {/* Search */}
-            <div className="relative max-w-md w-full lg:w-auto">
+            <div className="relative w-full lg:max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
                 placeholder="Search photos, events, or tags..."
@@ -115,14 +115,14 @@ const Gallery = () => {
               />
             </div>
             
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               {/* View Toggle */}
               <div className="flex items-center border border-sacred-blue/30 dark:border-celestial-teal/30 rounded-lg overflow-hidden">
                 <Button
                   variant={viewMode === 'grid' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setViewMode('grid')}
-                  className={`rounded-none ${viewMode === 'grid' ? 'bg-sacred-blue text-white' : ''}`}
+                  className={`rounded-none flex-1 sm:flex-none ${viewMode === 'grid' ? 'bg-sacred-blue text-white' : ''}`}
                 >
                   <Grid3X3 className="h-4 w-4" />
                 </Button>
@@ -130,7 +130,7 @@ const Gallery = () => {
                   variant={viewMode === 'list' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setViewMode('list')}
-                  className={`rounded-none ${viewMode === 'list' ? 'bg-sacred-blue text-white' : ''}`}
+                  className={`rounded-none flex-1 sm:flex-none ${viewMode === 'list' ? 'bg-sacred-blue text-white' : ''}`}
                 >
                   <List className="h-4 w-4" />
                 </Button>
@@ -140,7 +140,7 @@ const Gallery = () => {
               {user ? (
                 <Button 
                   onClick={() => setIsUploadModalOpen(true)}
-                  className="bg-divine-gold hover:bg-divine-gold/90 text-deep-maroon font-semibold"
+                  className="bg-sacred-blue hover:bg-sacred-blue/90 text-white font-semibold whitespace-nowrap"
                 >
                   <Upload className="h-4 w-4 mr-2" />
                   Upload Photo
@@ -148,7 +148,7 @@ const Gallery = () => {
               ) : (
                 <Button 
                   onClick={() => handleOpenAuth('login')}
-                  className="bg-divine-gold hover:bg-divine-gold/90 text-deep-maroon font-semibold"
+                  className="bg-sacred-blue hover:bg-sacred-blue/90 text-white font-semibold whitespace-nowrap"
                 >
                   <Camera className="h-4 w-4 mr-2" />
                   Sign In to Upload
@@ -166,7 +166,7 @@ const Gallery = () => {
           ) : (
             <div className={
               viewMode === 'grid' 
-                ? "grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" 
+                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6" 
                 : "space-y-6 max-w-2xl mx-auto"
             }>
               {filteredPhotos.map((photo) => (
@@ -182,12 +182,12 @@ const Gallery = () => {
 
           {/* Empty State */}
           {!loading && filteredPhotos.length === 0 && (
-            <div className="text-center py-12">
+            <div className="text-center py-12 px-4">
               <Camera className="h-16 w-16 text-gray-400 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-deep-maroon dark:text-divine-gold mb-2">
                 {searchTerm ? 'No photos found' : 'No photos yet'}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
+              <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">
                 {searchTerm 
                   ? 'Try adjusting your search terms or browse all photos.' 
                   : 'Be the first to share a beautiful faith moment with the community!'

@@ -1,97 +1,117 @@
 
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Logo } from '@/components/Logo';
-import { DarkModeToggle } from '@/components/DarkModeToggle';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Heart, MessageCircle, Users } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
+import { Heart, User, LogOut, Menu, X } from 'lucide-react';
+import { DarkModeToggle } from '@/components/DarkModeToggle';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 interface HeaderProps {
   onOpenAuth: (mode: 'login' | 'signup') => void;
 }
 
 export const Header = ({ onOpenAuth }: HeaderProps) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
-  const { user, signOut } = useAuth();
+  const [user, setUser] = useState<any>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
-  const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'Gallery', path: '/gallery' },
-    { name: 'Pricing', path: '/pricing' },
-  ];
+  useEffect(() => {
+    checkUser();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user || null);
+    });
 
-  const authenticatedNavItems = [
-    { name: 'Find Match', path: '/find-match', icon: Heart },
-    { name: 'Chat', path: '/chat', icon: MessageCircle },
-    { name: 'Profile', path: '/profile', icon: Users },
-  ];
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const checkUser = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    setUser(user);
+  };
 
   const handleSignOut = async () => {
     try {
-      await signOut();
+      await supabase.auth.signOut();
+      setUser(null);
+      navigate('/');
+      toast({
+        title: "Signed out successfully",
+        description: "Come back soon!"
+      });
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error('Sign out error:', error);
     }
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-faithful-ivory/95 dark:bg-nightly-navy/95 backdrop-blur-sm border-b border-sacred-blue/20 dark:border-celestial-teal/30">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-nightly-navy/95 backdrop-blur-sm border-b border-sacred-blue/20 dark:border-celestial-teal/20 transition-colors duration-200">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <Logo />
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="bg-sacred-blue dark:bg-radiant-yellow p-2 rounded-full transition-colors duration-200">
+              <Heart className="h-6 w-6 text-white dark:text-nightly-navy fill-current" />
+            </div>
+            <span className="font-playfair font-bold text-deep-maroon dark:text-divine-gold transition-colors duration-200 text-lg sm:text-xl lg:text-2xl">
+              Christian Match Ghana
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={`font-medium transition-colors hover:text-sacred-blue dark:hover:text-radiant-yellow ${
-                  location.pathname === item.path
-                    ? 'text-sacred-blue dark:text-radiant-yellow'
-                    : 'text-charcoal dark:text-soft-white'
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
-            
-            {user && authenticatedNavItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className={`flex items-center space-x-1 font-medium transition-colors hover:text-sacred-blue dark:hover:text-radiant-yellow ${
-                    location.pathname === item.path
-                      ? 'text-sacred-blue dark:text-radiant-yellow'
-                      : 'text-charcoal dark:text-soft-white'
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  <span>{item.name}</span>
-                </Link>
-              );
-            })}
+            <Link 
+              to="/about" 
+              className="text-charcoal dark:text-soft-white hover:text-sacred-blue dark:hover:text-celestial-teal transition-colors font-medium"
+            >
+              About
+            </Link>
+            <Link 
+              to="/gallery" 
+              className="text-charcoal dark:text-soft-white hover:text-sacred-blue dark:hover:text-celestial-teal transition-colors font-medium"
+            >
+              Gallery
+            </Link>
+            <Link 
+              to="/pricing" 
+              className="text-charcoal dark:text-soft-white hover:text-sacred-blue dark:hover:text-celestial-teal transition-colors font-medium"
+            >
+              Pricing
+            </Link>
+            <Link 
+              to="/blog" 
+              className="text-charcoal dark:text-soft-white hover:text-sacred-blue dark:hover:text-celestial-teal transition-colors font-medium"
+            >
+              Blog
+            </Link>
           </nav>
 
           {/* Desktop Auth Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
             <DarkModeToggle />
             {user ? (
-              <div className="flex items-center space-x-4">
-                <span className="text-sm text-charcoal/70 dark:text-soft-white/70">
-                  Welcome, {user.email}
-                </span>
-                <Button onClick={handleSignOut} variant="outline" className="border-deep-maroon text-deep-maroon hover:bg-deep-maroon hover:text-white dark:border-celestial-teal dark:text-celestial-teal dark:hover:bg-celestial-teal dark:hover:text-nightly-navy">
-                  Sign Out
+              <div className="flex items-center space-x-3">
+                <Link to="/find-match">
+                  <Button className="bg-sacred-blue hover:bg-sacred-blue/90 text-white">
+                    Find Match
+                  </Button>
+                </Link>
+                <Link to="/profile">
+                  <Button variant="ghost" size="sm">
+                    <User className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Button variant="ghost" size="sm" onClick={handleSignOut}>
+                  <LogOut className="h-4 w-4" />
                 </Button>
               </div>
             ) : (
@@ -99,15 +119,15 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
                 <Button 
                   variant="ghost" 
                   onClick={() => onOpenAuth('login')}
-                  className="text-charcoal hover:text-sacred-blue dark:text-soft-white dark:hover:text-radiant-yellow"
+                  className="text-charcoal dark:text-soft-white hover:text-sacred-blue dark:hover:text-celestial-teal"
                 >
                   Sign In
                 </Button>
                 <Button 
                   onClick={() => onOpenAuth('signup')}
-                  className="bg-divine-gold hover:bg-divine-gold/90 text-charcoal font-semibold"
+                  className="bg-sacred-blue hover:bg-sacred-blue/90 text-white"
                 >
-                  Get Started
+                  Join Now
                 </Button>
               </>
             )}
@@ -116,89 +136,85 @@ export const Header = ({ onOpenAuth }: HeaderProps) => {
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center space-x-2">
             <DarkModeToggle />
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-charcoal dark:text-soft-white hover:text-sacred-blue dark:hover:text-radiant-yellow transition-colors"
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleMobileMenu}
+              className="text-charcoal dark:text-soft-white"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-sacred-blue/20 dark:border-celestial-teal/30">
-            <nav className="space-y-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`block px-3 py-2 rounded-md font-medium transition-colors ${
-                    location.pathname === item.path
-                      ? 'bg-sacred-blue/10 dark:bg-radiant-yellow/10 text-sacred-blue dark:text-radiant-yellow'
-                      : 'text-charcoal dark:text-soft-white hover:bg-faithful-ivory dark:hover:bg-charcoal-gray'
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden bg-white dark:bg-nightly-navy border-t border-sacred-blue/20 dark:border-celestial-teal/20 py-4">
+            <nav className="flex flex-col space-y-4">
+              <Link 
+                to="/about" 
+                onClick={closeMobileMenu}
+                className="text-charcoal dark:text-soft-white hover:text-sacred-blue dark:hover:text-celestial-teal transition-colors font-medium px-4 py-2"
+              >
+                About
+              </Link>
+              <Link 
+                to="/gallery" 
+                onClick={closeMobileMenu}
+                className="text-charcoal dark:text-soft-white hover:text-sacred-blue dark:hover:text-celestial-teal transition-colors font-medium px-4 py-2"
+              >
+                Gallery
+              </Link>
+              <Link 
+                to="/pricing" 
+                onClick={closeMobileMenu}
+                className="text-charcoal dark:text-soft-white hover:text-sacred-blue dark:hover:text-celestial-teal transition-colors font-medium px-4 py-2"
+              >
+                Pricing
+              </Link>
+              <Link 
+                to="/blog" 
+                onClick={closeMobileMenu}
+                className="text-charcoal dark:text-soft-white hover:text-sacred-blue dark:hover:text-celestial-teal transition-colors font-medium px-4 py-2"
+              >
+                Blog
+              </Link>
               
-              {user && authenticatedNavItems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center space-x-2 px-3 py-2 rounded-md font-medium transition-colors ${
-                      location.pathname === item.path
-                        ? 'bg-sacred-blue/10 dark:bg-radiant-yellow/10 text-sacred-blue dark:text-radiant-yellow'
-                        : 'text-charcoal dark:text-soft-white hover:bg-faithful-ivory dark:hover:bg-charcoal-gray'
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span>{item.name}</span>
-                  </Link>
-                );
-              })}
-              
-              <div className="border-t border-sacred-blue/20 dark:border-celestial-teal/30 pt-2 mt-2">
+              <div className="border-t border-sacred-blue/20 dark:border-celestial-teal/20 pt-4 px-4 space-y-3">
                 {user ? (
-                  <div className="space-y-2">
-                    <div className="px-3 py-2 text-sm text-charcoal/70 dark:text-soft-white/70">
-                      Welcome, {user.email}
-                    </div>
-                    <Button 
-                      onClick={handleSignOut} 
-                      variant="outline" 
-                      className="w-full mx-3 border-deep-maroon text-deep-maroon hover:bg-deep-maroon hover:text-white dark:border-celestial-teal dark:text-celestial-teal dark:hover:bg-celestial-teal dark:hover:text-nightly-navy"
-                    >
+                  <>
+                    <Link to="/find-match" onClick={closeMobileMenu}>
+                      <Button className="w-full bg-sacred-blue hover:bg-sacred-blue/90 text-white">
+                        Find Match
+                      </Button>
+                    </Link>
+                    <Link to="/profile" onClick={closeMobileMenu}>
+                      <Button variant="outline" className="w-full">
+                        <User className="h-4 w-4 mr-2" />
+                        Profile
+                      </Button>
+                    </Link>
+                    <Button variant="outline" className="w-full" onClick={() => { handleSignOut(); closeMobileMenu(); }}>
+                      <LogOut className="h-4 w-4 mr-2" />
                       Sign Out
                     </Button>
-                  </div>
+                  </>
                 ) : (
-                  <div className="space-y-2">
+                  <>
                     <Button 
-                      variant="ghost" 
-                      onClick={() => {
-                        onOpenAuth('login');
-                        setIsMenuOpen(false);
-                      }}
-                      className="w-full mx-3 text-charcoal hover:text-sacred-blue dark:text-soft-white dark:hover:text-radiant-yellow"
+                      variant="outline" 
+                      className="w-full"
+                      onClick={() => { onOpenAuth('login'); closeMobileMenu(); }}
                     >
                       Sign In
                     </Button>
                     <Button 
-                      onClick={() => {
-                        onOpenAuth('signup');
-                        setIsMenuOpen(false);
-                      }}
-                      className="w-full mx-3 bg-divine-gold hover:bg-divine-gold/90 text-charcoal font-semibold"
+                      className="w-full bg-sacred-blue hover:bg-sacred-blue/90 text-white"
+                      onClick={() => { onOpenAuth('signup'); closeMobileMenu(); }}
                     >
-                      Get Started
+                      Join Now
                     </Button>
-                  </div>
+                  </>
                 )}
               </div>
             </nav>

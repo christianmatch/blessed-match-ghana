@@ -144,7 +144,7 @@ export const PhotoUploadModal = ({ isOpen, onClose, onUploadSuccess }: PhotoUplo
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Camera className="h-5 w-5 text-sacred-blue" />
@@ -152,7 +152,7 @@ export const PhotoUploadModal = ({ isOpen, onClose, onUploadSuccess }: PhotoUplo
           </DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {/* File Upload */}
           <div>
             <Label htmlFor="photo-upload">Select Photo (Max 5MB)</Label>
@@ -205,21 +205,21 @@ export const PhotoUploadModal = ({ isOpen, onClose, onUploadSuccess }: PhotoUplo
               value={caption}
               onChange={(e) => setCaption(e.target.value.slice(0, 300))}
               placeholder="Share your faith moment..."
-              className="mt-2 min-h-20"
+              className="mt-2 min-h-20 resize-none"
             />
             <p className="text-xs text-gray-500 mt-1">{caption.length}/300</p>
           </div>
 
           {/* Verse Suggestions */}
           <div>
-            <Label>Add a Bible Verse</Label>
-            <div className="mt-2 space-y-2">
+            <Label className="text-sm font-medium">Add a Bible Verse</Label>
+            <div className="mt-2 space-y-2 max-h-32 overflow-y-auto">
               {VERSE_SUGGESTIONS.map((verse, index) => (
                 <Button
                   key={index}
                   variant="ghost"
                   size="sm"
-                  className="h-auto p-2 text-xs text-left justify-start"
+                  className="h-auto p-2 text-xs text-left justify-start w-full whitespace-normal leading-relaxed"
                   onClick={() => addVerseToCaption(verse)}
                 >
                   {verse}
@@ -242,13 +242,13 @@ export const PhotoUploadModal = ({ isOpen, onClose, onUploadSuccess }: PhotoUplo
 
           {/* Faith Moment Tags */}
           <div>
-            <Label>Faith Moment Tag (Optional)</Label>
+            <Label className="text-sm font-medium">Faith Moment Tag (Optional)</Label>
             <div className="mt-2 flex flex-wrap gap-2">
               {FAITH_MOMENT_TAGS.map((tag) => (
                 <Badge
                   key={tag}
                   variant={faithMomentTag === tag ? "default" : "outline"}
-                  className="cursor-pointer hover:bg-sacred-blue hover:text-white"
+                  className="cursor-pointer hover:bg-sacred-blue hover:text-white text-xs"
                   onClick={() => setFaithMomentTag(faithMomentTag === tag ? '' : tag)}
                 >
                   {tag}
@@ -258,7 +258,7 @@ export const PhotoUploadModal = ({ isOpen, onClose, onUploadSuccess }: PhotoUplo
           </div>
 
           {/* Upload Button */}
-          <div className="flex gap-2 pt-4">
+          <div className="flex flex-col sm:flex-row gap-2 pt-4">
             <Button variant="outline" onClick={handleClose} className="flex-1">
               Cancel
             </Button>
