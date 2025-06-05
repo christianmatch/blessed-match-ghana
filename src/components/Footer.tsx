@@ -1,7 +1,5 @@
-
 import { Link } from 'react-router-dom';
-import { Logo } from '@/components/Logo';
-import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Mail, Phone, MapPin, Heart } from 'lucide-react';
 
 export const Footer = () => {
   return (
@@ -10,7 +8,14 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo and Description */}
           <div className="lg:col-span-2">
-            <Logo className="mb-6" textSize="text-2xl" />
+            <div className="flex items-center space-x-2 mb-6">
+              <div className="bg-sacred-blue dark:bg-radiant-yellow p-2 rounded-full transition-colors duration-200">
+                <Heart className="h-6 w-6 text-white dark:text-nightly-navy fill-current" />
+              </div>
+              <span className="font-playfair font-bold text-yellow-400 transition-colors duration-200 text-2xl">
+                Christian Match Ghana
+              </span>
+            </div>
             <p className="text-faithful-ivory/90 dark:text-soft-white/90 mb-6 leading-relaxed">
               Christian Match Ghana is dedicated to helping God-fearing singles find their life partners through 
               faith-centered connections. Join thousands of believers who have found love through our platform.
