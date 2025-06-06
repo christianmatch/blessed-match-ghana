@@ -58,6 +58,13 @@ export const usePaystack = () => {
           userId: user.id,
           planType: planType,
           planName: planName,
+          custom_fields: [
+            {
+              display_name: "Plan Type",
+              variable_name: "plan_type",
+              value: planType
+            }
+          ]
         },
       };
 
