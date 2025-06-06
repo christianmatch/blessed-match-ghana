@@ -33,10 +33,10 @@ export const MatchSidebar = ({ activeTab, onTabChange }: MatchSidebarProps) => {
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
-              className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-colors ${
+              className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-all duration-300 hover:scale-[1.02] ${
                 activeTab === tab.id
-                  ? 'bg-christian-blue text-white'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-800'
               }`}
             >
               <Icon className="h-5 w-5" />

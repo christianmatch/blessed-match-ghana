@@ -15,42 +15,42 @@
     --popover: 255 255 255; /* Pure White */
     --popover-foreground: 51 51 51; /* Charcoal */
 
-    --primary: 65 105 225; /* Sacred Blue */
+    --primary: 37 99 235; /* Professional Blue #2563EB */
     --primary-foreground: 255 255 255; /* Pure White */
 
-    --secondary: 255 215 0; /* Divine Gold */
-    --secondary-foreground: 51 51 51; /* Charcoal */
+    --secondary: 239 246 255; /* Light Blue Tint #EFF6FF */
+    --secondary-foreground: 37 99 235; /* Professional Blue */
 
     --muted: 255 249 240; /* Faithful Ivory */
     --muted-foreground: 128 0 0; /* Deep Maroon */
 
-    --accent: 255 182 193; /* Blush Pink */
-    --accent-foreground: 51 51 51; /* Charcoal */
+    --accent: 239 246 255; /* Light Blue Tint */
+    --accent-foreground: 37 99 235; /* Professional Blue */
 
     --destructive: 220 38 127; /* Deep Pink */
     --destructive-foreground: 255 255 255; /* Pure White */
 
-    --border: 65 105 225; /* Sacred Blue */
+    --border: 37 99 235; /* Professional Blue */
     --input: 229 231 235; /* Light Gray */
-    --ring: 255 215 0; /* Divine Gold */
+    --ring: 37 99 235; /* Professional Blue */
 
     --radius: 0.75rem;
 
     /* Sidebar */
     --sidebar-background: 255 255 255; /* Pure White */
     --sidebar-foreground: 51 51 51; /* Charcoal */
-    --sidebar-primary: 65 105 225; /* Sacred Blue */
+    --sidebar-primary: 37 99 235; /* Professional Blue */
     --sidebar-primary-foreground: 255 255 255; /* Pure White */
-    --sidebar-accent: 255 249 240; /* Faithful Ivory */
-    --sidebar-accent-foreground: 51 51 51; /* Charcoal */
-    --sidebar-border: 65 105 225; /* Sacred Blue */
-    --sidebar-ring: 255 215 0; /* Divine Gold */
+    --sidebar-accent: 239 246 255; /* Light Blue Tint */
+    --sidebar-accent-foreground: 37 99 235; /* Professional Blue */
+    --sidebar-border: 37 99 235; /* Professional Blue */
+    --sidebar-ring: 37 99 235; /* Professional Blue */
 
     /* Custom Spiritual Colors */
     --faithful-ivory: 255 249 240;
     --pure-white: 255 255 255;
     --divine-gold: 255 215 0;
-    --sacred-blue: 65 105 225;
+    --sacred-blue: 37 99 235; /* Updated to Professional Blue */
     --graceful-green: 46 139 87;
     --blush-pink: 255 182 193;
     --deep-maroon: 128 0 0;
@@ -68,34 +68,34 @@
     --popover: 44 62 80; /* Charcoal Gray */
     --popover-foreground: 245 245 245; /* Soft White */
 
-    --primary: 255 204 0; /* Radiant Yellow */
-    --primary-foreground: 10 31 58; /* Nightly Navy */
+    --primary: 37 99 235; /* Professional Blue */
+    --primary-foreground: 255 255 255; /* Pure White */
 
-    --secondary: 0 139 139; /* Celestial Teal */
+    --secondary: 30 58 138; /* Darker Blue */
     --secondary-foreground: 245 245 245; /* Soft White */
 
     --muted: 44 62 80; /* Charcoal Gray */
     --muted-foreground: 245 245 245; /* Soft White */
 
-    --accent: 0 139 139; /* Celestial Teal */
+    --accent: 30 58 138; /* Darker Blue */
     --accent-foreground: 245 245 245; /* Soft White */
 
     --destructive: 239 68 68; /* Red */
     --destructive-foreground: 255 255 255; /* Pure White */
 
-    --border: 0 139 139; /* Celestial Teal */
+    --border: 37 99 235; /* Professional Blue */
     --input: 44 62 80; /* Charcoal Gray */
-    --ring: 255 204 0; /* Radiant Yellow */
+    --ring: 37 99 235; /* Professional Blue */
 
     /* Sidebar Dark */
     --sidebar-background: 10 31 58; /* Nightly Navy */
     --sidebar-foreground: 245 245 245; /* Soft White */
-    --sidebar-primary: 255 204 0; /* Radiant Yellow */
-    --sidebar-primary-foreground: 10 31 58; /* Nightly Navy */
+    --sidebar-primary: 37 99 235; /* Professional Blue */
+    --sidebar-primary-foreground: 255 255 255; /* Pure White */
     --sidebar-accent: 44 62 80; /* Charcoal Gray */
     --sidebar-accent-foreground: 245 245 245; /* Soft White */
-    --sidebar-border: 0 139 139; /* Celestial Teal */
-    --sidebar-ring: 255 204 0; /* Radiant Yellow */
+    --sidebar-border: 37 99 235; /* Professional Blue */
+    --sidebar-ring: 37 99 235; /* Professional Blue */
 
     /* Custom Spiritual Colors Dark */
     --nightly-navy: 10 31 58;
@@ -118,7 +118,7 @@
 
 @layer components {
   .gradient-bg {
-    background: linear-gradient(135deg, rgb(65 105 225) 0%, rgb(46 139 87) 50%, rgb(255 215 0) 100%);
+    background: linear-gradient(135deg, rgb(37 99 235) 0%, rgb(46 139 87) 50%, rgb(255 215 0) 100%);
   }
   
   .gold-gradient {
@@ -129,11 +129,56 @@
     @apply transition-all duration-300 hover:scale-105 hover:shadow-lg;
   }
   
+  /* Updated Professional Blue Button Styles */
   .btn-christian {
-    @apply bg-sacred-blue hover:bg-sacred-blue/90 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg;
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-md;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  }
+  
+  .btn-christian:hover {
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
   }
   
   .btn-gold {
-    @apply bg-divine-gold hover:bg-divine-gold/90 text-charcoal font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg;
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-md;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  }
+  
+  .btn-gold:hover {
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+  }
+
+  /* Primary Button Styles */
+  .btn-primary {
+    background-color: #2563EB;
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1D4ED8;
+    transform: scale(1.02);
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  }
+
+  /* Secondary Button Styles */
+  .btn-secondary {
+    background-color: transparent;
+    color: #2563EB;
+    border: 1px solid #2563EB;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #EFF6FF;
+    transform: scale(1.02);
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  }
+
+  /* Disabled Button Styles */
+  .btn-disabled {
+    background-color: #93C5FD;
+    color: #F8FAFC;
+    cursor: not-allowed;
   }
 }

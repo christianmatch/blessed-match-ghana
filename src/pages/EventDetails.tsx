@@ -67,14 +67,10 @@ const EventDetails = () => {
       if (eventError) throw eventError;
       setEvent(eventData);
 
-      // Fetch participants with their profiles
+      // Fetch participants
       const { data: participantsData, error: participantsError } = await supabase
         .from('event_participants')
-        .select(`
-          id,
-          user_id,
-          joined_at
-        `)
+        .select('id, user_id, joined_at')
         .eq('event_id', id);
 
       if (participantsError) throw participantsError;
