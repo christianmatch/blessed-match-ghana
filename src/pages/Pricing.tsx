@@ -4,13 +4,15 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/AuthModal';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { PaymentButton } from '@/components/PaymentButton';
 import { Check, Star, Heart, Users } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Pricing = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
+  const { user } = useAuth();
 
   const handleOpenAuth = (mode: 'login' | 'signup') => {
     setAuthMode(mode);
@@ -19,8 +21,9 @@ const Pricing = () => {
 
   const plans = [
     {
+      id: 'free',
       name: "Basic",
-      price: "Free",
+      price: 0,
       period: "Forever",
       description: "Perfect for starting your faith journey",
       features: [
@@ -36,8 +39,9 @@ const Pricing = () => {
       icon: <Users className="h-6 w-6" />
     },
     {
+      id: 'premium',
       name: "Premium",
-      price: "₵50",
+      price: 50,
       period: "per month",
       description: "Enhanced features for serious Christians",
       features: [
@@ -56,8 +60,9 @@ const Pricing = () => {
       icon: <Star className="h-6 w-6" />
     },
     {
+      id: 'platinum',
       name: "Platinum",
-      price: "₵100",
+      price: 100,
       period: "per month",
       description: "Complete experience with personal guidance",
       features: [
@@ -89,12 +94,17 @@ const Pricing = () => {
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Find the perfect plan to support your journey to finding a God-centered relationship.
             </p>
+            {!user && (
+              <p className="text-sm text-gray-500 mt-4">
+                Please sign in to purchase a subscription plan.
+              </p>
+            )}
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {plans.map((plan) => (
               <Card 
-                key={plan.name} 
+                key={plan.id} 
                 className={`relative bg-white dark:bg-surface-dark-elevated border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow ${
                   plan.popular ? 'ring-2 ring-love-red' : ''
                 }`}
@@ -115,8 +125,10 @@ const Pricing = () => {
                     {plan.name}
                   </CardTitle>
                   <div className="mt-4">
-                    <span className="text-4xl font-bold text-love-red">{plan.price}</span>
-                    {plan.period !== "Forever" && (
+                    <span className="text-4xl font-bold text-love-red">
+                      {plan.price === 0 ? 'Free' : `₵${plan.price}`}
+                    </span>
+                    {plan.period !== "Forever" && plan.price > 0 && (
                       <span className="text-gray-600 dark:text-gray-300 ml-2">/{plan.period}</span>
                     )}
                   </div>
@@ -133,17 +145,30 @@ const Pricing = () => {
                     ))}
                   </ul>
                   
-                  <Button 
+                  <PaymentButton
+                    planType={plan.id}
+                    amount={plan.price}
+                    planName={`${plan.name} Monthly`}
+                    buttonText={plan.buttonText}
                     variant={plan.buttonVariant}
                     className={`w-full ${
                       plan.buttonVariant === 'default' 
                         ? 'bg-love-red hover:bg-love-red-dark text-white' 
                         : 'border-love-red text-love-red hover:bg-love-red hover:text-white'
                     }`}
-                    onClick={() => handleOpenAuth('signup')}
-                  >
-                    {plan.buttonText}
-                  </Button>
+                    disabled={!user && plan.price > 0}
+                  />
+
+                  {!user && plan.price > 0 && (
+                    <p className="text-xs text-gray-500 text-center mt-2">
+                      <button 
+                        onClick={() => handleOpenAuth('login')}
+                        className="text-blue-600 hover:underline"
+                      >
+                        Sign in
+                      </button> to purchase this plan
+                    </p>
+                  )}
                 </CardContent>
               </Card>
             ))}
